@@ -545,12 +545,13 @@ $.offAll = function () {
 
 var config = {
 
-    // 默认菜单配置
+    // 默认菜单配置 修改了颜色
     menus: ['head', 'bold', 'fontSize', 'fontName', 'italic', 'underline', 'strikeThrough', 'foreColor', 'backColor', 'link', 'list', 'justify', 'quote', 'emoticon', 'image', 'table', 'video', 'code', 'undo', 'redo'],
 
     fontNames: ['宋体', '微软雅黑', 'Arial', 'Tahoma', 'Verdana'],
 
-    colors: ['#000000', '#eeece0', '#1c487f', '#4d80bf', '#c24f4a', '#8baa4a', '#7b5ba1', '#46acc8', '#f9963b', '#ffffff'],
+    
+    colors: ['black', 'silver', 'gray', 'white', 'maroon', 'red', 'purple', 'fuchsia', 'green', 'lime','olive','yellow','navy','blue','teal','aqua'],
 
     // // 语言配置
     // lang: {
@@ -604,8 +605,8 @@ var config = {
         content: '😀 😃 😄 😁 😆 😅 😂 😊 😇 🙂 🙃 😉 😓 😪 😴 🙄 🤔 😬 🤐'.split(/\s/)
     }],
 
-    // 编辑区域的 z-index
-    zIndex: 10000,
+    // 编辑区域的 z-index 降低了z-index值
+    zIndex: 666,
 
     // 是否开启 debug 模式（debug 模式下错误会 throw error 形式抛出）
     debug: false,
@@ -1834,13 +1835,13 @@ function ForeColor(editor) {
     // 当前是否 active 状态
     this._active = false;
 
-    // 初始化 droplist
+    // 初始化 droplist 修改了图标 w-e-icon-fg-color
     this.droplist = new DropList(this, {
         width: 120,
         $title: $('<p>文字颜色</p>'),
         type: 'inline-block', // droplist 内容以 block 形式展示
         list: colors.map(function (color) {
-            return { $elem: $('<i style="color:' + color + ';" class="w-e-icon-pencil2"></i>'), value: color };
+            return { $elem: $('<i style="color:' + color + ';" class="w-e-icon-fg-color"></i>'), value: color };
         }),
         onClick: function onClick(value) {
             // 注意 this 是指向当前的 ForeColor 对象
@@ -1878,13 +1879,13 @@ function BackColor(editor) {
     // 当前是否 active 状态
     this._active = false;
 
-    // 初始化 droplist
+    // 初始化 droplist 修改了图标 w-e-icon-bg-color
     this.droplist = new DropList(this, {
         width: 120,
         $title: $('<p>背景色</p>'),
         type: 'inline-block', // droplist 内容以 block 形式展示
         list: colors.map(function (color) {
-            return { $elem: $('<i style="color:' + color + ';" class="w-e-icon-paint-brush"></i>'), value: color };
+            return { $elem: $('<i style="color:' + color + ';" class="w-e-icon-bg-color"></i>'), value: color };
         }),
         onClick: function onClick(value) {
             // 注意 this 是指向当前的 BackColor 对象
@@ -2669,17 +2670,47 @@ Image.prototype = {
     _createEditPanel: function _createEditPanel() {
         var editor = this.editor;
 
-        // id
+        // id 增加了图片的显示比例10% 自定义 确定按钮
+	var widthPercent =getRandom('width-percent');
+	var percentBtn = getRandom('percent-btn');
+	var width10 = getRandom('width-10');
         var width30 = getRandom('width-30');
         var width50 = getRandom('width-50');
         var width100 = getRandom('width-100');
         var delBtn = getRandom('del-btn');
 
-        // tab 配置
+        // tab 配置  增加了图片的显示比例10%和自定义
         var tabsConfig = [{
             title: '编辑图片',
-            tpl: '<div>\n                    <div class="w-e-button-container" style="border-bottom:1px solid #f1f1f1;padding-bottom:5px;margin-bottom:5px;">\n                        <span style="float:left;font-size:14px;margin:4px 5px 0 5px;color:#333;">\u6700\u5927\u5BBD\u5EA6\uFF1A</span>\n                        <button id="' + width30 + '" class="left">30%</button>\n                        <button id="' + width50 + '" class="left">50%</button>\n                        <button id="' + width100 + '" class="left">100%</button>\n                    </div>\n                    <div class="w-e-button-container">\n                        <button id="' + delBtn + '" class="gray left">\u5220\u9664\u56FE\u7247</button>\n                    </dv>\n                </div>',
+            tpl: '<div>\n                    <div class="w-e-button-container" style="border-bottom:1px solid #f1f1f1;padding-bottom:5px;margin-bottom:5px;">\n                        <span style="float:left;font-size:14px;margin:4px 5px 0 5px;color:#333;">\u6700\u5927\u5BBD\u5EA6\uFF1A</span>\n                        <button id="' + width10 + '" class="left">10%</button>\n						<button id="' + width30 + '" class="left">30%</button>\n                        <button id="' + width50 + '" class="left">50%</button>\n                        <button id="' + width100 + '" class="left">100%</button>\n                    <input id ="' + widthPercent + '"  type="text" style="width:50%;text-align:center;" placeholder="请输入百分比"/><button id="' + percentBtn + '" class="gray">\u786E\u5B9A</button>\n          </div>\n                    <div class="w-e-button-container">\n                        <button id="' + delBtn + '" class="gray left">\u5220\u9664\u56FE\u7247</button>\n                    </dv>\n                </div>',
             events: [{
+                selector: '#' + percentBtn,
+                type: 'click',
+                fn: function fn() {
+                    var $img = editor._selectedImg;
+                    if ($img) {
+			var $widthPercent = $('#' + widthPercent);
+			var percentval = $widthPercent.val().trim();
+			var patt1 = /^\d+%$/;
+			if(percentval && patt1.test(percentval)){
+				$img.css('max-width', percentval);
+			}
+                    }
+                    // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                    return true;
+                }
+            },{
+                selector: '#' + width10,
+                type: 'click',
+                fn: function fn() {
+                    var $img = editor._selectedImg;
+                    if ($img) {
+                        $img.css('max-width', '10%');
+                    }
+                    // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                    return true;
+                }
+            }, {
                 selector: '#' + width30,
                 type: 'click',
                 fn: function fn() {
