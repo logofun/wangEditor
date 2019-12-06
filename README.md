@@ -15,7 +15,7 @@
 
 
 
-## 使用 注意最新版只能对div框架进行渲染
+## 使用 注意 最新版只能对div框架进行渲染
 
 ```javascript
 var E = window.wangEditor
@@ -34,12 +34,14 @@ editor.create()
 ## 自己改动的地方
 - 1、增加图片的百分比自定义
 - 2、修改字体颜色和背景色图标 包括处理(有待改进处 白色)
-- 3、修改了face为本地图像 新增了一个参数 emotionPath
+- 3、修改了face为本地图像 新增了一个参数 
+	emotionPath
     editor.customConfig.emotionPath = '/images/face/';
-![pic](捕获.PNG)
-![pic](捕获1.PNG)
+![pic](readme/1.PNG)
+![pic](readme/2.PNG)
 ## 需要进一步学习的地方
-- 如何把woff文件嵌入到css，还需学习 [了解woff2字体及转换](https://www.zhangxinxu.com/wordpress/2018/07/known-woff2-mime-convert/)
-  转换地址为[地址](https://www.zhangxinxu.com/sp/base64.html)
+- 如何把woff文件嵌入到css，还需学习 
+	[了解woff2字体及转换](https://www.zhangxinxu.com/wordpress/2018/07/known-woff2-mime-convert/)
+  	转换地址为[地址](https://www.zhangxinxu.com/sp/base64.html)
 - 下一步把全屏和源码显示从插件中集成到js中
 
