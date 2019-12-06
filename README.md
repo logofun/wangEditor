@@ -31,7 +31,7 @@ editor.create()
 - 学习作者的教程 - 《[前端JS高级面试](https://coding.imooc.com/class/190.html)》《[前端JS基础面试题](http://coding.imooc.com/class/115.html)》《[React.js模拟大众点评webapp](http://coding.imooc.com/class/99.html)》《[zepto设计与源码分析](http://www.imooc.com/learn/745)》《[json2.js源码解读](http://study.163.com/course/courseMain.htm?courseId=691008)》
 
 
-## 自己想改动的地方
+## 自己改动的地方
 - 1、增加图片的百分比自定义
 - 2、修改字体颜色和背景色图标 包括处理(有待改进处 白色)
 - 3、修改了face为本地图像 请将images文件夹和js文件放在一个目录下 
