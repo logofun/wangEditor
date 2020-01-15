@@ -1,4 +1,4 @@
-	/**
+/**
  * wangEditor扩展,查看源码功能
  * 传入均为 editor实例,非css选择器
  * 
@@ -9,7 +9,7 @@
  * E.viewSource.init(editor);
  */
  
-	window.wangEditor.viewSource = {
+window.wangEditor.viewSource = {
     init: function(editor) {
     	id = editor.id;
     	if(!this.pluginsEditors){
@@ -59,6 +59,6 @@
         }
         editor.txt.html(_source);
     }
-	};
+};
 
 	
