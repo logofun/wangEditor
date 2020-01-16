@@ -546,7 +546,7 @@ $.offAll = function () {
 var config = {
 
     // 默认菜单配置 修改了颜色
-    menus: ['head', 'bold', 'fontSize', 'fontName', 'italic', 'underline', 'strikeThrough', 'foreColor', 'backColor', 'link', 'list', 'justify', 'quote', 'emoticon', 'image', 'table', 'video', 'code', 'undo', 'redo'],
+    menus: ['viewcode','head', 'bold', 'fontSize', 'fontName', 'italic', 'underline', 'strikeThrough', 'foreColor', 'backColor', 'link', 'list', 'justify', 'quote', 'emoticon', 'image', 'table', 'video', 'code', 'undo', 'redo'],
 
     fontNames: ['宋体', '微软雅黑', 'Arial', 'Tahoma', 'Verdana'],
     
@@ -876,6 +876,70 @@ function isFunction(fn) {
     return typeof fn === 'function';
 }
 
+
+/*************************************************************
+   试试 源码 按钮 还需更新 查找 viewcode的元素
+**************************************************************/
+/*
+    viewcode-menu
+*/
+// 构造函数
+function Viewcode(editor) {
+    this.editor = editor;
+    this.$elem = $('<div class="w-e-menu viewcode"><i class="w-e-icon-viewcode"></i></div>');
+    this.type = 'click';
+
+    // 当前是否 active 状态
+    this._active = false;
+}
+
+// 原型
+Viewcode.prototype = {
+    constructor: Viewcode,
+
+    // 点击事件
+    onClick: function onClick(e) {
+        // 点击菜单将触发这里
+        
+        var editor = this.editor;
+        editor.isHTML = !editor.isHTML;
+
+        var _source = editor.txt.html();  //获得源码
+
+        console.log(editor);
+
+        if (editor.isHTML) {
+            _source = _source.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/ /g, "&nbsp;");
+            
+            editor.$toolbarElem.children().css("display","none");
+            // editor.$toolbarElem.children().first().css("display",""); //我把代码放在第一个元素上 还需改进 查找定位
+            editor.$toolbarElem.find(".viewcode").css("display","");
+
+        }else{
+            _source = editor.txt.text().replace(/&lt;/ig, "<").replace(/&gt;/ig, ">").replace(/&nbsp;/ig, " ");
+            editor.$toolbarElem.children().css("display","");
+            editor.change && editor.change();
+        }
+        editor.txt.html(_source);
+        console.log(_source);
+
+    },
+
+    // 试图改变 active 状态
+    // tryChangeActive: function tryChangeActive(e) {
+    //     var editor = this.editor;
+    //     var $elem = this.$elem;
+    //     if (editor.cmd.queryCommandState('bold')) {
+    //         this._active = true;
+    //         $elem.addClass('w-e-active');
+    //     } else {
+    //         this._active = false;
+    //         $elem.removeClass('w-e-active');
+    //     }
+    // }
+};
+/*************************************************************
+**************************************************************/
 /*
     bold-menu
 */
@@ -2961,6 +3025,8 @@ Image.prototype = {
 
 // 存储菜单的构造函数
 var MenuConstructors = {};
+
+MenuConstructors.viewcode = Viewcode; //*********************************
 
 MenuConstructors.bold = Bold;
 

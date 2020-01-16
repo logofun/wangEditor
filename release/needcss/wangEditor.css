@@ -153,7 +153,7 @@
   content: "\ea79";
 }
 .w-e-icon-terminal:before {
-  content: "\ea80";
+  content: "\f120";
 }
 .w-e-icon-page-break:before {
   content: "\ea68";
@@ -177,6 +177,10 @@
 }
 .w-e-icon-code:before {
   content:  "\ea80";	
+}
+/*第4个*/
+.w-e-icon-viewcode:before {
+  content:  "\ea80";  
 }
 /*自己增加的图标 end */
 
