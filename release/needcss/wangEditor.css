@@ -433,7 +433,7 @@
   left: 0px !important;
   top: 0px !important;
   background-color: white;
-  /*z-index: 9999;*/
+  z-index: 10001;
 }
 
 .w-fullscreen .w-e-text-container {
