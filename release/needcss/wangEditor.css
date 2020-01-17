@@ -175,8 +175,8 @@
 .w-e-icon-bg-color:before {
   content:  "\f1fd";	
 }
-.w-e-icon-code:before {
-  content:  "\ea80";	
+.w-e-icon-full:before {
+  content:  "\1120";	
 }
 /*第4个*/
 .w-e-icon-viewcode:before {
@@ -424,4 +424,19 @@
 }
 .w-e-text img:hover {
   box-shadow: 0 0 5px #333;
+}
+
+.w-fullscreen {
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
+  left: 0px !important;
+  top: 0px !important;
+  background-color: white;
+  /*z-index: 9999;*/
+}
+
+.w-fullscreen .w-e-text-container {
+  width: 100% !important;
+  height: 95% !important;
 }

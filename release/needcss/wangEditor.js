@@ -546,7 +546,7 @@ $.offAll = function () {
 var config = {
 
     // 默认菜单配置 修改了颜色
-    menus: ['viewcode','head', 'bold', 'fontSize', 'fontName', 'italic', 'underline', 'strikeThrough', 'foreColor', 'backColor', 'link', 'list', 'justify', 'quote', 'emoticon', 'image', 'table', 'video', 'code', 'undo', 'redo'],
+    menus: ['viewcode','head', 'bold', 'fontSize', 'fontName', 'italic', 'underline', 'strikeThrough', 'foreColor', 'backColor', 'link', 'list', 'justify', 'quote', 'emoticon', 'image', 'table', 'video', 'code', 'undo', 'redo','fullscreen'],
 
     fontNames: ['宋体', '微软雅黑', 'Arial', 'Tahoma', 'Verdana'],
     
@@ -922,6 +922,68 @@ Viewcode.prototype = {
         }
         editor.txt.html(_source);
         console.log(_source);
+
+    },
+
+    // 试图改变 active 状态
+    // tryChangeActive: function tryChangeActive(e) {
+    //     var editor = this.editor;
+    //     var $elem = this.$elem;
+    //     if (editor.cmd.queryCommandState('bold')) {
+    //         this._active = true;
+    //         $elem.addClass('w-e-active');
+    //     } else {
+    //         this._active = false;
+    //         $elem.removeClass('w-e-active');
+    //     }
+    // }
+};
+/*************************************************************
+/*************************************************************
+    全屏 按钮 
+**************************************************************/
+/*
+    fullscreen-menu
+*/
+// 构造函数
+function Fullscreen(editor) {
+    this.editor = editor;
+    this.$elem = $('<div class="w-e-menu fullscreen"><i class="w-e-icon-full"></i></div>');
+    this.type = 'click';
+
+    // 当前是否 active 状态
+    this._active = false;
+}
+
+// 原型
+Fullscreen.prototype = {
+    constructor: Fullscreen,
+
+    // 点击事件
+    onClick: function onClick(e) {
+        // 点击菜单将触发这里
+        
+        var editor = this.editor;
+        editor.isFullScreen = !editor.isFullScreen;
+
+        
+        console.log(editor);
+
+        if (editor.isFullScreen) {
+            //editor.find(editor.toolbarSelector).addClass('fullscreen');
+            editor.$toolbarElem.parent().addClass('w-fullscreen');
+            // editor.$toolbarElem.children().css("display","none");
+            // // editor.$toolbarElem.children().first().css("display",""); //我把代码放在第一个元素上 还需改进 查找定位
+            // editor.$toolbarElem.find(".viewcode").css("display","");
+
+        }else{
+            // _source = editor.txt.text().replace(/&lt;/ig, "<").replace(/&gt;/ig, ">").replace(/&nbsp;/ig, " ");
+            // editor.$toolbarElem.children().css("display","");
+            // editor.change && editor.change();
+            editor.$toolbarElem.parent().removeClass('w-fullscreen');
+        }
+        // editor.txt.html(_source);
+        // console.log(_source);
 
     },
 
@@ -3027,6 +3089,7 @@ Image.prototype = {
 var MenuConstructors = {};
 
 MenuConstructors.viewcode = Viewcode; //*********************************
+MenuConstructors.fullscreen = Fullscreen; //*********************************
 
 MenuConstructors.bold = Bold;
 
